@@ -1,51 +1,76 @@
-# 📌 Classificador de Sentimentos com Álgebra Linear e NLP
+Aqui está a versão atualizada do seu README com tags adicionais e o link para o repositório:
 
-Este repositório contém um **classificador de sentimentos simples** baseado em **álgebra linear e Bag-of-Words (BoW)**. Ele demonstra conceitos fundamentais de **Processamento de Linguagem Natural (NLP)** usando operações matemáticas básicas para classificar frases como **positivas ou negativas**.
+---
 
-## 🚀 Funcionalidades
-- Criação de um **vocabulário** a partir de frases de treinamento
-- Representação de frases como **vetores no espaço vetorial**
-- Uso de **produto escalar** para medir similaridade entre frases e classes
-- **Normalização de vetores** para evitar viés
-- **Visualização gráfica** da relação entre palavras e sentimentos
-- Interface interativa para testes com frases do usuário
+# Classificador de Texto Simples
 
-## 🛠️ Requisitos
-Antes de rodar o projeto, instale os seguintes pacotes Python:
+[![Licença](https://img.shields.io/badge/Licença-MIT-blue.svg)](LICENSE)  
+[![Repositório](https://img.shields.io/badge/Repositório-GitHub-green.svg)](https://github.com/lzdeva/bag-of-words-nlp)  
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)  
+[![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-orange.svg)](https://github.com/lzdeva/bag-of-words-nlp)
+
+Um exemplo prático e didático de como cálculos matemáticos e álgebra linear são usados para criar um classificador de texto básico.
+
+---
+
+## 🚀 Como Executar
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/lzdeva/bag-of-words-nlp.git
+   ```
+
+2. Execute o código:
+   ```bash
+   cd bag-of-words-nlp
+   python classificador_texto.py
+   ```
+
+---
+
+## 🧠 Entendendo o Funcionamento
+
+O código é dividido em etapas simples:
+
+1. **Tokenização e Vocabulário**:
+
+   - As frases são divididas em palavras únicas, criando um vocabulário.
+   - O tamanho do vocabulário é dinâmico e depende das palavras presentes nas frases de treinamento.
+   - Exemplo: Se o vocabulário gerado for `["eu", "adoro", "esse", "filme", "que", "dia", "maravilhoso", "isso", "é", "incrível", "horrível", "estou", "muito", "triste", "terrível"]`, o tamanho do vocabulário será **15**.
+
+2. **Vetorização (Bag-of-Words)**:
+
+   - Cada frase é convertida em um vetor numérico, onde cada posição representa uma palavra do vocabulário.
+   - O vetor tem o mesmo tamanho do vocabulário.
+
+3. **Treinamento**:
+
+   - Soma-se os vetores das frases positivas e negativas para criar representações das classes.
+
+4. **Classificação**:
+   - A classificação é feita comparando a similaridade (produto escalar) entre o vetor da frase de entrada e as somas das classes.
+
+---
+
+## 💡 Exemplo Prático
+
+Digite uma frase e veja como o classificador funciona:
 
 ```bash
-pip install numpy matplotlib
-```
-
-## 📥 Instalação e Execução
-Clone este repositório e execute o script principal:
-
-```bash
-git clone https://github.com/seu-usuario/nlp-algebra-basics.git
-cd nlp-algebra-basics
-python classificador.py
-```
-
-## 📊 Como Funciona
-1. O script **gera um vocabulário** com todas as palavras das frases de treinamento.
-2. Cada frase é transformada em um **vetor de características** baseado em Bag-of-Words.
-3. Os vetores das frases positivas e negativas são somados e normalizados para formar **representações vetoriais das classes**.
-4. Para classificar uma nova frase, calculamos a **similaridade pelo produto escalar** com os vetores das classes.
-5. A classe com maior similaridade determina o resultado.
-6. Um **gráfico de barras** exibe a relação das palavras com os sentimentos.
-
-## 🖥️ Exemplo de Uso
-```bash
-Bem-vindo ao Classificador de Sentimentos!
-Digite uma frase para classificá-la como Positiva ou Negativa.
-Digite 'sair' para encerrar.
-
-Frase: Esse filme é ótimo!
+Frase: "Que dia incrível!"
 Classificação: Positivo
-
-Frase: Estou muito triste hoje.
-Classificação: Negativo
 ```
+
+Vocabulário gerado:
+
+```
+["eu", "adoro", "esse", "filme", "que", "dia", "maravilhoso", "isso", "é", "incrível", "horrível", "estou", "muito", "triste", "terrível"]
+Tamanho do vocabulário: 15
+```
+
+---
 
 ## 📜 Licença
-Este projeto está sob a licença MIT. Sinta-se à vontade para usar e modificar! 🎯
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
