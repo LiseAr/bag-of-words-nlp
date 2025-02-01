@@ -70,3 +70,78 @@ Tamanho do vocabulário: 15
 ## 📜 Licença
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+---
+
+# Simple Text Classifier
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![Repository](https://img.shields.io/badge/Repository-GitHub-green.svg)](https://github.com/lzdeva/bag-of-words-nlp)  
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)  
+[![Status](https://img.shields.io/badge/Status-Under%20Development-orange.svg)](https://github.com/lzdeva/bag-of-words-nlp)
+
+A practical and educational example of how mathematical calculations and linear algebra are used to create a basic text classifier.
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/lzdeva/bag-of-words-nlp.git
+   ```
+
+2. Run the code:
+   ```bash
+   cd bag-of-words-nlp
+   python classificador_texto.py
+   ```
+
+---
+
+## 🧠 Understanding How It Works
+
+The code is divided into simple steps:
+
+1. **Tokenization and Vocabulary**:
+
+   - Sentences are split into unique words to create a vocabulary.
+   - The vocabulary size is dynamic and depends on the words in the training sentences.
+   - Example: If the generated vocabulary is `["I", "love", "this", "movie", "what", "a", "great", "day", "this", "is", "amazing", "terrible", "I’m", "feeling", "sad", "awful"]`, the vocabulary size will be **15**.
+
+2. **Vectorization (Bag-of-Words)**:
+
+   - Each sentence is converted into a numerical vector, where each position represents a word in the vocabulary.
+   - The vector has the same size as the vocabulary.
+
+3. **Training**:
+
+   - The vectors of positive and negative sentences are summed to create class representations.
+
+4. **Classification**:
+   - Classification is done by comparing the similarity (dot product) between the input sentence vector and the class sums.
+
+---
+
+## 💡 Practical Example
+
+Type a sentence and see how the classifier works:
+
+```bash
+Sentence: "What an amazing day!"
+Classification: Positive
+```
+
+Generated vocabulary:
+
+```
+["I", "love", "this", "movie", "what", "a", "great", "day", "this", "is", "amazing", "terrible", "I’m", "feeling", "sad", "awful"]
+Vocabulary size: 15
+```
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
