@@ -1,7 +1,3 @@
-Aqui está a versão atualizada do seu README com tags adicionais e o link para o repositório:
-
----
-
 # Classificador de Texto Simples
 
 [![Licença](https://img.shields.io/badge/Licença-MIT-blue.svg)](LICENSE)  
