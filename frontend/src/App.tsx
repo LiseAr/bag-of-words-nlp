@@ -1,6 +1,9 @@
-import React, { useState, ChangeEvent, KeyboardEvent } from 'react'
-import { FaFileUpload } from 'react-icons/fa'
+import React from 'react'
+import { motion } from 'framer-motion'
 import { useClassificar } from './useClassificar'
+import UploadFiles from './UploadFiles'
+import Processing from './Processing'
+import Classification from './Classification'
 
 const App: React.FC = () => {
   const {
@@ -11,126 +14,79 @@ const App: React.FC = () => {
     criarModelo,
     classificarFrase,
     handleFileUpload,
-    modeloCriado
+    modeloCriado,
+    dadosTreinamento
   } = useClassificar()
 
-  const [nomeArquivoPositivo, setNomeArquivoPositivo] = useState<string>('')
-  const [nomeArquivoNegativo, setNomeArquivoNegativo] = useState<string>('')
-
-  const handleFileChange =
-    (tipo: 'positivo' | 'negativo') =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0]
-      if (file) {
-        if (tipo === 'positivo') {
-          setNomeArquivoPositivo(file.name)
-        } else {
-          setNomeArquivoNegativo(file.name)
-        }
-        handleFileUpload(tipo)(event)
-      }
-    }
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault()
-      classificarFrase()
-    }
-  }
-
   return (
-    <div className='w-screen min-h-screen bg-gradient-to-r from-gray-900 to-black flex items-center justify-center p-8'>
-      <div className='bg-gray-800 p-10 rounded-xl shadow-2xl w-full max-w-lg'>
-        <h1 className='text-5xl font-bold text-center text-white mb-8 text-shadow'>
-          Classificador de Texto
+    <div className='w-screen min-h-screen bg-gradient-to-r from-gray-900 to-black flex flex-col items-center px-8 py-6'>
+      {/* Cabeçalho */}
+      <motion.div
+        className='text-center text-white mb-8'
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h1 className='text-4xl font-bold text-blue-400 drop-shadow-lg'>
+          🔍 Analisador de Sentimentos
         </h1>
+        <p className='text-gray-300 mt-2'>
+          Faça upload dos dados e classifique frases em positivo ou negativo.
+        </p>
+      </motion.div>
 
-        {!modeloCriado ? (
-          <div>
-            <div className='mb-6'>
-              <label className='w-full p-4 bg-gray-900 text-white border-2 border-gray-700 rounded-lg flex items-center cursor-pointer'>
-                <FaFileUpload className='mr-2' />
-                {nomeArquivoPositivo ||
-                  'Carregar frases positivas (TXT ou CSV)'}
-                <input
-                  type='file'
-                  accept='.txt,.csv'
-                  onChange={handleFileChange('positivo')}
-                  className='hidden'
-                />
-              </label>
+      {/* Upload de Arquivos */}
+      {!dadosTreinamento && (
+        <motion.div
+          className='w-full max-w-3xl mb-6'
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <UploadFiles
+            handleFileUpload={handleFileUpload}
+            criarModelo={criarModelo}
+            carregando={carregando}
+          />
+        </motion.div>
+      )}
+
+      {/* Grid Layout - Dashboard */}
+      <div className='w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 gap-6'>
+        {/* Processamento dos Dados */}
+        {dadosTreinamento && (
+          <motion.div
+            className='col-span-1 sm:col-span-2 lg:col-span-1'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            <Processing dadosTreinamento={dadosTreinamento} />
+          </motion.div>
+        )}
+
+        {/* Classificação de Texto */}
+        {modeloCriado && (
+          <motion.div
+            className='col-span-1 sm:col-span-2 lg:col-span-1 space-y-6'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
+            <div className='p-6 bg-green-900 text-green-200 rounded-lg shadow-md text-center h-fit'>
+              <h2 className='text-2xl font-bold'>🎉 Modelo pronto para uso!</h2>
+              <p className='text-sm text-gray-300 mt-2'>
+                O modelo já pode ser utilizado para classificação de textos.
+              </p>
             </div>
-
-            <div className='mb-6'>
-              <label className='w-full p-4 bg-gray-900 text-white border-2 border-gray-700 rounded-lg flex items-center cursor-pointer'>
-                <FaFileUpload className='mr-2' />
-                {nomeArquivoNegativo ||
-                  'Carregar frases negativas (TXT ou CSV)'}
-                <input
-                  type='file'
-                  accept='.txt,.csv'
-                  onChange={handleFileChange('negativo')}
-                  className='hidden'
-                />
-              </label>
-            </div>
-
-            <button
-              onClick={criarModelo}
-              disabled={carregando}
-              className='w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg text-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 ease-in-out disabled:bg-gray-600 transform hover:scale-105'
-            >
-              {carregando ? (
-                <div className='flex justify-center items-center'>
-                  <div className='w-6 h-6 border-4 border-t-4 border-white rounded-full animate-spin'></div>
-                </div>
-              ) : (
-                'Criar Modelo'
-              )}
-            </button>
-          </div>
-        ) : (
-          <div>
-            <h2 className='text-2xl font-semibold text-white mb-4'>
-              Digite uma frase para classificar
-            </h2>
-            <textarea
-              value={frase}
-              onChange={(e) => setFrase(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder='Digite uma frase...'
-              className='w-full p-4 border-2 border-gray-700 rounded-lg text-white bg-gray-900 focus:outline-none focus:ring-4 focus:ring-blue-500 mb-6 text-lg transition-all duration-300 ease-in-out transform hover:scale-105'
-              rows={5}
+            <Classification
+              frase={frase}
+              setFrase={setFrase}
+              classificarFrase={classificarFrase}
+              carregando={carregando}
+              resultado={resultado}
             />
-            <button
-              onClick={classificarFrase}
-              disabled={carregando}
-              className='w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg text-xl font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 ease-in-out disabled:bg-gray-600 transform hover:scale-105'
-            >
-              {carregando ? (
-                <div className='flex justify-center items-center'>
-                  <div className='w-6 h-6 border-4 border-t-4 border-white rounded-full animate-spin'></div>
-                </div>
-              ) : (
-                'Classificar Frase'
-              )}
-            </button>
-
-            {resultado && (
-              <div className='mt-8 text-center'>
-                <h2 className='text-3xl font-semibold text-white mb-2'>
-                  Resultado:
-                </h2>
-                <p
-                  className={`text-4xl font-bold transition-all duration-500 ease-in-out ${
-                    resultado === 'Positivo' ? 'text-green-500' : 'text-red-500'
-                  }`}
-                >
-                  {resultado}
-                </p>
-              </div>
-            )}
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

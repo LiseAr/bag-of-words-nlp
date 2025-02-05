@@ -12,7 +12,6 @@ carinho
 afeto
 ternura
 conquista
-realização
 orgulho
 satisfação
 contentamento
@@ -282,7 +281,6 @@ felicidade
 alegria
 contentamento
 satisfação
-realização
 plenitude
 completude
 perfeição
@@ -323,9 +321,7 @@ desenvolvimento
 progresso
 avanço
 melhoria
-superação
 conquista
-realização
 êxito
 triunfo
 vitória
@@ -383,7 +379,6 @@ persistência
 resiliência
 superação
 conquista
-realização
 orgulho
 satisfação
 contentamento
@@ -411,9 +406,7 @@ desenvolvimento
 progresso
 avanço
 melhoria
-superação
 conquista
-realização
 êxito
 triunfo
 vitória
@@ -469,9 +462,7 @@ força
 determinação
 persistência
 resiliência
-superação
 conquista
-realização
 orgulho
 satisfação
 contentamento
@@ -499,7 +490,6 @@ desenvolvimento
 progresso
 avanço
 melhoria
-superação
 conquista
 realização
 êxito
